@@ -16,7 +16,7 @@ a {
 .wrapper {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 	flex-direction: column;
 	min-height: 100%;
 }
@@ -33,12 +33,13 @@ a {
 	padding: 30px;
 	background-color: #252525;
 	box-shadow: 0px 0px 57px 0px rgba(0, 0, 0, 0.7);
-	position: absolute;
-	top: 0;
-	left: 0;
+	// position: absolute;
+	// top: 0;
+	// left: 0;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	margin-bottom: 50px;
 
 	.container {
 		height: 100%;
@@ -102,6 +103,11 @@ a {
 	max-width: 1200px;
 	width: 100%;
 	min-height: 500px;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
 	position: relative;
 }
 
@@ -115,15 +121,21 @@ a {
 	padding: 30px;
 	display: flex;
 	align-items: flex-end;
-	gap: 50px;
+	flex-wrap: wrap;
+	column-gap: 50px;
+
+	@media (max-width: 768px) {
+		padding: 10px;
+	}
 
 	&__box {
 		flex: 1;
 	}
 
 	&__img {
-		width: 400px;
-		height: 400px;
+		max-width: 400px;
+		min-width: 290px;
+		height: auto;
 		border-radius: 10px;
 		overflow: hidden;
 		background-color: #333;
@@ -136,9 +148,13 @@ a {
 	}
 
 	&__info {
+		min-width: 290px;
+		text-overflow: ellipsis;
 		height: 70px;
 		display: flex;
 		align-items: center;
+		flex-wrap: wrap;
+		overflow: hidden;
 		gap: 10px;
 		font-size: 18px;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
