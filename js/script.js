@@ -1,40 +1,16 @@
 const userBox = document.getElementById("git-user");
 const searchUserInput = document.getElementById("search-user-input");
 
-const loadGitUser = async (e) => {
+const loading = () => {
 	userBox.innerHTML = `
   <div class="loading">
     loading
   </div>`;
+};
 
-	let server = `https://api.github.com/users/labcap`;
-
-	document.addEventListener("keypress", async (e) => {
-		if (e.key === "Enter") {
-			// code for enter
-
-			server = `https://api.github.com/users/${
-				searchUserInput.value.length > 0 ? searchUserInput.value : "labcap"
-			}`;
-
-			const response = await fetch(server, {
-				method: "GET",
-			});
-
-			const responseResult = await response.json();
-
-			if (response.ok) {
-				getGitUser(responseResult);
-			} else {
-				userBox.innerHTML = responseResult.message;
-			}
-			console.log(server);
-			console.log(searchUserInput.value);
-		}
-	});
-
+const processing = async (server, box, method) => {
 	const response = await fetch(server, {
-		method: "GET",
+		method: method,
 	});
 
 	const responseResult = await response.json();
@@ -42,8 +18,38 @@ const loadGitUser = async (e) => {
 	if (response.ok) {
 		getGitUser(responseResult);
 	} else {
-		userBox.innerHTML = responseResult.message;
+		box.innerHTML = `
+  
+    <div class="error">
+      <div class="error__title">
+      ${responseResult.message}
+      </div>
+    </div>
+  `;
 	}
+};
+
+const loadGitUser = async (e) => {
+	loading();
+	let server = `https://api.github.com/users/labcap`;
+
+	document.addEventListener("keypress", async (e) => {
+		if (e.key === "Enter") {
+			loading();
+
+			server = `https://api.github.com/users/${
+				searchUserInput.value.length > 0 ? searchUserInput.value : "labcap"
+			}`;
+
+			processing(server, userBox, "GET");
+		}
+	});
+
+	processing(server, userBox, "GET");
+};
+
+const nothingInfo = (data) => {
+	return data ? data : "nothing";
 };
 
 const getGitUser = (data) => {
@@ -53,21 +59,39 @@ const getGitUser = (data) => {
   <div class="user">
     <div class="user__box">
       <div class="user__img"><img src=${data.avatar_url} alt="user-img"/></div>
-      <div class="user__info user__name"><b>Name:</b><span>${data.name}</span></div>
-      <div class="user__info user__login"><b>Login:</b><span>${data.login}</span></div>
+      <div class="user__info user__name"><b>Name:</b><span>
+      ${nothingInfo(data.name)}
+      </span></div>
+      <div class="user__info user__login"><b>Login:</b><span>
+      ${nothingInfo(data.login)}
+      </span></div>
     </div>
 
     <div class="user__box">
-      <div class="user__info user__url"><b>Url to github:</b><a href="${data.html_url}" target="_blank">${data.html_url}</a></div>
-      <div class="user__info user__blog"><b>Blog:</b><a href="${data.blog}" target="_blank">${data.blog}</a></div>
-      <div class="user__info user__pub-repo"><b>Public repos:</b><span>${data.public_repos}</span></div>
-      <div class="user__info user__data"><b>Created an account:</b><span>${data.created_at}</span></div>
+      <div class="user__info user__url"><b>Url to github:</b><a href="${
+				data.html_url
+			}" target="_blank">${nothingInfo(data.html_url)}</a></div>
+      <div class="user__info user__blog"><b>Blog:</b><a href="${
+				data.blog
+			}" target="_blank">
+      ${nothingInfo(data.blog)}
+      </a></div>
+      <div class="user__info user__pub-repo"><b>Public repos:</b><span>
+      ${nothingInfo(data.public_repos)}
+      </span></div>
+      <div class="user__info user__data"><b>Created an account:</b><span>
+      ${nothingInfo(data.created_at)}
+      </span></div>
       <div class="user__info user__follow-box">
-        <div class="user__followers"><b>Followers:</b><span>${data.followers}</span></div>
-        <div class="user__following"><b>Following:</b><span>${data.following}</span></div>
+        <div class="user__followers"><b>Followers:</b><span>
+        ${nothingInfo(data.followers)}</span></div>
+        <div class="user__following"><b>Following:</b><span>
+        ${nothingInfo(data.following)}
+        </span></div>
       </div>
     </div>
-  </div>`;
+  </div>
+  `;
 
 	userBox.innerHTML = template;
 };
