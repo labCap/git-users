@@ -53,7 +53,7 @@ const nothingInfo = (data) => {
 };
 
 const getGitUser = (data) => {
-	console.log(data);
+	const dataCreatedProfile = data.created_at.split("T");
 
 	const template = `
   <div class="user">
@@ -79,8 +79,17 @@ const getGitUser = (data) => {
       <div class="user__info user__pub-repo"><b>Public repos:</b><span>
       ${nothingInfo(data.public_repos)}
       </span></div>
+      <div class="user__info user__data"><b>Email:</b><span>
+      ${nothingInfo(data.email)}
+      </span></div>
+      <div class="user__info user__data"><b>Company:</b><span>
+      ${nothingInfo(data.company)}
+      </span></div>
+      <div class="user__info user__data"><b>Location:</b><span>
+      ${nothingInfo(data.location)}
+      </span></div>
       <div class="user__info user__data"><b>Created an account:</b><span>
-      ${nothingInfo(data.created_at)}
+      ${dataCreatedProfile[0]}
       </span></div>
       <div class="user__info user__follow-box">
         <div class="user__followers"><b>Followers:</b><span>
