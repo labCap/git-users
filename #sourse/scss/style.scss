@@ -27,7 +27,7 @@ a {
 	margin: 0 auto;
 }
 
-.search-user {
+.search {
 	width: 100%;
 	min-height: 70px;
 	padding: 30px;
@@ -159,28 +159,6 @@ a {
 		font-size: 18px;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 
-		b {
-		}
-		span {
-		}
-	}
-
-	&__name {
-	}
-
-	&__login {
-	}
-
-	&__url {
-	}
-
-	&__blog {
-	}
-
-	&__pub-repo {
-	}
-
-	&__data {
 	}
 
 	&__follow-box {
@@ -193,11 +171,5 @@ a {
 	&__following {
 		display: flex;
 		gap: 10px;
-	}
-
-	&__followers {
-	}
-
-	&__following {
 	}
 }
