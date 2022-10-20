@@ -1,5 +1,7 @@
-const userBox = document.getElementById("git-user");
-const searchUserInput = document.getElementById("search-user-input");
+const userBox = document.querySelector("#git-user");
+const searchUserInput = document.querySelector("#search-input");
+
+userBox.innerHTML = `<div class="info">Enter user login</div>`;
 
 const loading = () => {
 	userBox.innerHTML = `
@@ -31,19 +33,10 @@ const processing = async (server, box, method) => {
 
 const loadGitUser = async (e) => {
 	loading();
-	let server = `https://api.github.com/users/labcap`;
+	// loading();
 
-	document.addEventListener("keypress", async (e) => {
-		if (e.key === "Enter") {
-			loading();
-
-			server = `https://api.github.com/users/${
-				searchUserInput.value.length > 0 ? searchUserInput.value : "labcap"
-			}`;
-
-			processing(server, userBox, "GET");
-		}
-	});
+	server = `https://api.github.com/users/${searchUserInput.value}`;
+	// processing(server, userBox, "GET");
 
 	processing(server, userBox, "GET");
 };
@@ -57,11 +50,11 @@ const getGitUser = (data) => {
 
 	const template = `
   <div class="user">
-    <div class="user__box">
-      <div class="user__img"><img src=${data.avatar_url} alt="user-img"/></div>
-      <div class="user__info user__name"><b>Name:</b><span>
-      ${nothingInfo(data.name)}
-      </span></div>
+  <div class="user__box">
+  <div class="user__img"><img src=${data.avatar_url} alt="user-img"/></div>
+  <div class="user__info user__name"><b>Name:</b><span>
+  ${nothingInfo(data.name)}
+  </span></div>
       <div class="user__info user__login"><b>Login:</b><span>
       ${nothingInfo(data.login)}
       </span></div>
@@ -105,6 +98,10 @@ const getGitUser = (data) => {
 	userBox.innerHTML = template;
 };
 
-if (userBox) {
-	loadGitUser();
-}
+searchUserInput.addEventListener("keypress", (e) => {
+	if (e.key === "Enter") {
+		if (userBox) {
+			loadGitUser();
+		}
+	}
+});

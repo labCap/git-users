@@ -57,6 +57,16 @@ a {
 	}
 }
 
+.info {
+	color: gold;
+	font-size: 30px;
+	font-weight: 700;
+
+	@media (max-width: 768px) {
+		font-size: 18px;
+	}
+}
+
 .loading {
 	font-size: 20px;
 	position: absolute;
@@ -158,7 +168,6 @@ a {
 		gap: 10px;
 		font-size: 18px;
 		border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-
 	}
 
 	&__follow-box {

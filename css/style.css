@@ -137,6 +137,17 @@ a {
   background-color: #252525;
 }
 
+.info {
+  color: gold;
+  font-size: 30px;
+  font-weight: 700;
+}
+@media (max-width: 768px) {
+  .info {
+    font-size: 18px;
+  }
+}
+
 .loading {
   font-size: 20px;
   position: absolute;
